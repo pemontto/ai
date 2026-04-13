@@ -300,7 +300,9 @@ export class GeminiTextAdapter<
                 index: nextToolIndex++,
                 started: false,
                 thoughtSignature:
-                  (functionCall as any).thoughtSignature || undefined,
+                  (part as any).thoughtSignature ||
+                  (functionCall as any).thoughtSignature ||
+                  undefined,
               }
               toolCallMap.set(toolCallId, toolCallData)
             } else {
@@ -590,9 +592,9 @@ export class GeminiTextAdapter<
               id: toolCall.id,
               name: toolCall.function.name,
               args: parsedArgs,
-              ...(thoughtSignature && { thoughtSignature }),
-            } as any,
-          })
+            },
+            ...(thoughtSignature && { thoughtSignature }),
+          } as any)
         }
       }
 
